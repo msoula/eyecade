@@ -32,3 +32,11 @@ ExportedObj/
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# ============ #
+# tobii files  #
+# ============ #
+
+Assets/Tobii.meta
+Assets/Tobii/
+Tobii.GameIntegration.dll
