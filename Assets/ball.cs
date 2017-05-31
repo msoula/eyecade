@@ -22,6 +22,15 @@ public class ball : MonoBehaviour {
         return ((Ball_Pos.y - Racket_Pos.y) / Racket_Height);
     }
 
+    bool isNearInWorld(float x, float y, float distance)
+    {
+        Vector3 v3Pos = new Vector3(x, y, 0);
+
+        v3Pos = v3Pos - transform.position;
+
+        return ((v3Pos.x > -distance && v3Pos.y > -distance) && (v3Pos.x < distance && v3Pos.y < distance));
+    }
+
     bool isNear(float x, float y, float distance) {
         Vector3 v3Pos = new Vector3(x, y, 0);
         v3Pos = Camera.main.ScreenToWorldPoint(v3Pos);
@@ -47,9 +56,17 @@ public class ball : MonoBehaviour {
         } else if (isNear(Input.mousePosition.x, Input.mousePosition.y, _distance)) {
             GetComponent<SpriteRenderer>().sprite = sprite;
         } else {
-
-            GetComponent<SpriteRenderer>().sprite = null;
-            GetComponent<TrailRenderer>().Clear();
+            GameObject go = GameObject.Find("eye");
+            Eyex eye = (Eyex)go.GetComponent(typeof(Eyex));
+            if (isNearInWorld(eye.transform.position.x, eye.transform.position.y, _distance))
+            {
+                GetComponent<SpriteRenderer>().sprite = sprite;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().sprite = null;
+                GetComponent<TrailRenderer>().Clear();
+            }
         }
 
     }
