@@ -33,6 +33,13 @@ public class Eyex : MonoBehaviour {
 #else
     void Update()
     {
+
+        if (UserPresence.Present != TobiiAPI.GetUserPresence()) {
+            transform.position = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            return;
+        }
+
+
         if (_pauseTimer > 0)
         {
             _pauseTimer -= Time.deltaTime;
