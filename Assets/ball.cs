@@ -38,11 +38,11 @@ public class ball : MonoBehaviour {
 
     void Update() {
 
-        if (isNear(-10f, 37f, 10f, -37f)) { // center
+        if (isNear(-10f, 33f, 10f, -37f)) { // center
             GetComponent<SpriteRenderer>().sprite = sprite;
-        } else if (isNear(-50f, 37f, -35, -37f)) { // left
+        } else if (isNear(-50f, 33f, -35, -37f)) { // left
             GetComponent<SpriteRenderer>().sprite = sprite;
-        } else if (isNear(35f, 37f, 50f, -37f)) { // right
+        } else if (isNear(35f, 33f, 50f, -37f)) { // right
             GetComponent<SpriteRenderer>().sprite = sprite;
         } else if (isNear(Input.mousePosition.x, Input.mousePosition.y, _distance)) {
             GetComponent<SpriteRenderer>().sprite = sprite;
@@ -78,14 +78,18 @@ public class ball : MonoBehaviour {
             GetComponent<Rigidbody2D>().position = new Vector3(0, 0, 0);
             GetComponent<Rigidbody2D>().velocity = Vector2.left * speed;
             GetComponent<TrailRenderer>().Clear();
-
+            GameObject go = GameObject.Find("score_left");
+            score_manager sm = (score_manager)go.GetComponent(typeof(score_manager));
+            sm.Increment();
             _speed = speed;
         }
         if (col.gameObject.name == "wall_left") {
             GetComponent<Rigidbody2D>().position = new Vector3(0, 0, 0);
             GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;
             GetComponent<TrailRenderer>().Clear();
-
+            GameObject go = GameObject.Find("score_right");
+            score_manager sm = (score_manager)go.GetComponent(typeof(score_manager));
+            sm.Increment();
             _speed = speed;
         }
     }
