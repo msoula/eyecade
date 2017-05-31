@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class move_racket : MonoBehaviour {
+public class MoveRacket : MonoBehaviour {
 
     public float speed = 30;
     public string axis = "Vertical";

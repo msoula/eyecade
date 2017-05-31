@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ball : MonoBehaviour {
+public class Ball : MonoBehaviour {
 
     public static float SPEED_MAX = 60;
     public float speed = 30;
@@ -96,7 +96,7 @@ public class ball : MonoBehaviour {
             GetComponent<Rigidbody2D>().velocity = Vector2.left * speed;
             GetComponent<TrailRenderer>().Clear();
             GameObject go = GameObject.Find("score_left");
-            score_manager sm = (score_manager)go.GetComponent(typeof(score_manager));
+            ScoreManager sm = (ScoreManager)go.GetComponent(typeof(ScoreManager));
             sm.Increment();
             _speed = speed;
         }
@@ -105,7 +105,7 @@ public class ball : MonoBehaviour {
             GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;
             GetComponent<TrailRenderer>().Clear();
             GameObject go = GameObject.Find("score_right");
-            score_manager sm = (score_manager)go.GetComponent(typeof(score_manager));
+            ScoreManager sm = (ScoreManager)go.GetComponent(typeof(ScoreManager));
             sm.Increment();
             _speed = speed;
         }
