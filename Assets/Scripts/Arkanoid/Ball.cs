@@ -7,15 +7,58 @@ namespace Arkanoid {
 public class Ball : MonoBehaviour {
 
     public float speed = 100f;
+    public float distance;
+
+    private Sprite _sprite;
+    private Eyex   _eye;
 
 	// Use this for initialization
 	void Start () {
         GetComponent<Rigidbody2D>().velocity = Vector2.up * speed;
+
+        _sprite = GetComponent<SpriteRenderer>().sprite;
+
+        GameObject go = GameObject.Find("eye");
+        _eye = (Eyex)go.GetComponent(typeof(Eyex));
 	}
 
-	// Update is called once per frame
-	void Update () {
+    bool isNear(Vector3 v3Pos, float distance)
+    {
+        v3Pos = v3Pos - transform.position;
+        return ((v3Pos.x > -distance && v3Pos.y > -distance) && (v3Pos.x < distance && v3Pos.y < distance));
     }
+
+    bool isNear(float x, float y, float distance) {
+        Vector3 v3Pos = new Vector3(x, y, 0);
+        v3Pos = Camera.main.ScreenToWorldPoint(v3Pos);
+
+        v3Pos = v3Pos - transform.position;
+
+        return ((v3Pos.x > -distance && v3Pos.y > -distance) && (v3Pos.x < distance && v3Pos.y < distance));
+    }
+
+    bool isNear(float x1, float y1, float x2, float y2) {
+        Vector3 position = transform.position;
+        return ((x1 < position.x && y1 > position.y) && (x2 > position.x && y2 < position.y));
+    }
+
+	// Update is called once per frame
+    void Update() {
+
+        if (isNear(-110f, 120f, 110, 120f)) { // top
+            GetComponent<SpriteRenderer>().sprite = _sprite;
+        } else if (isNear(-110f, -30f, 110f, -110)) { // bottom
+            GetComponent<SpriteRenderer>().sprite = _sprite;
+        } else if (isNear(_eye.transform.position, distance)) {
+            GetComponent<SpriteRenderer>().sprite = _sprite;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().sprite = null;
+        }
+
+    }
+
 
 	float hitFactor(Vector2 ballPos, Vector2 racketPos, float racketWidth) {
         // ascii art:
