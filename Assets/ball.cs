@@ -41,6 +41,8 @@ public class ball : MonoBehaviour {
         } else if (isNear(Input.mousePosition.x, Input.mousePosition.y, _distance)) {
             GetComponent<SpriteRenderer>().sprite = sprite;
         } else {
+
+            GetComponent<SpriteRenderer>().sprite = null;
             GetComponent<TrailRenderer>().Clear();
         }
 
