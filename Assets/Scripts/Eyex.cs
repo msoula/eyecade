@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_STANDALONE_LINUX
+#else
 using Tobii.Gaming;
+#endif
 
 public class Eyex : MonoBehaviour {
 
@@ -21,6 +25,12 @@ public class Eyex : MonoBehaviour {
         GetComponent<SpriteRenderer>().sprite = PointSprite;
     }
 
+#if UNITY_STANDALONE_LINUX
+    void Update()
+    {
+        transform.position = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+#else
     void Update()
     {
         if (_pauseTimer > 0)
@@ -37,6 +47,7 @@ public class Eyex : MonoBehaviour {
             _pauseTimer = 0.1f;
         }
     }
+
     private Vector3 ProjectToPlaneInWorld(GazePoint gazePoint)
     {
         Vector3 gazeOnScreen = gazePoint.Screen;
@@ -61,4 +72,5 @@ public class Eyex : MonoBehaviour {
 
         return smoothedPoint;
     }
+#endif
 }

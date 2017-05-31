@@ -10,24 +10,25 @@ public class Ball : MonoBehaviour {
     public float _distance;
 
     private float _speed;
+    private Eyex  _eye;
 
 	void Start () {
 
         _speed = speed;
 
         GetComponent<Rigidbody2D>().velocity = Vector2.right * _speed;
+
+        GameObject go = GameObject.Find("eye");
+        _eye = (Eyex)go.GetComponent(typeof(Eyex));
 	}
 
     float HitFactor(Vector2 Ball_Pos, Vector2 Racket_Pos, float Racket_Height) {
         return ((Ball_Pos.y - Racket_Pos.y) / Racket_Height);
     }
 
-    bool isNearInWorld(float x, float y, float distance)
+    bool isNear(Vector3 v3Pos, float distance)
     {
-        Vector3 v3Pos = new Vector3(x, y, 0);
-
         v3Pos = v3Pos - transform.position;
-
         return ((v3Pos.x > -distance && v3Pos.y > -distance) && (v3Pos.x < distance && v3Pos.y < distance));
     }
 
@@ -53,20 +54,13 @@ public class Ball : MonoBehaviour {
             GetComponent<SpriteRenderer>().sprite = sprite;
         } else if (isNear(35f, 33f, 50f, -37f)) { // right
             GetComponent<SpriteRenderer>().sprite = sprite;
-        } else if (isNear(Input.mousePosition.x, Input.mousePosition.y, _distance)) {
+        } else if (isNear(_eye.transform.position, _distance)) {
             GetComponent<SpriteRenderer>().sprite = sprite;
-        } else {
-            GameObject go = GameObject.Find("eye");
-            Eyex eye = (Eyex)go.GetComponent(typeof(Eyex));
-            if (isNearInWorld(eye.transform.position.x, eye.transform.position.y, _distance))
-            {
-                GetComponent<SpriteRenderer>().sprite = sprite;
-            }
-            else
-            {
-                GetComponent<SpriteRenderer>().sprite = null;
-                GetComponent<TrailRenderer>().Clear();
-            }
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().sprite = null;
+            GetComponent<TrailRenderer>().Clear();
         }
 
     }
