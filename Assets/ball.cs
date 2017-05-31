@@ -39,6 +39,6 @@ public class ball : MonoBehaviour {
             GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;
             GetComponent<TrailRenderer>().Clear();
         }
-
     }
+
 }
