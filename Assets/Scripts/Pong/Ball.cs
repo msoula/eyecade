@@ -48,7 +48,7 @@ public class Ball : MonoBehaviour {
 
     void Update() {
 
-        if (isNear(-10f, 33f, 10f, -37f)) { // center
+        if (isNear(-5f, 33f, 5f, -37f)) { // center
             GetComponent<SpriteRenderer>().sprite = sprite;
         } else if (isNear(-50f, 33f, -35, -37f)) { // left
             GetComponent<SpriteRenderer>().sprite = sprite;
@@ -74,7 +74,7 @@ public class Ball : MonoBehaviour {
             float y = HitFactor(transform.position, col.transform.position, col.collider.bounds.size.y);
             Vector2 dir = new Vector2(1, y).normalized;
             GetComponent<Rigidbody2D>().velocity = dir * _speed;
-            GetComponent<TrailRenderer>().material.SetColor("_EmissionColor", new Color(0f, 0f, 0.8f, 1f));
+            GetComponent<TrailRenderer>().material.SetColor("_EmissionColor", new Color(0f, 240f, 210f, 1f));
         }
         if (col.gameObject.name == "racket_right")
         {
@@ -83,7 +83,7 @@ public class Ball : MonoBehaviour {
             float y = HitFactor(transform.position, col.transform.position, col.collider.bounds.size.y);
             Vector2 dir = new Vector2(-1, y).normalized;
             GetComponent<Rigidbody2D>().velocity = dir * _speed;
-            GetComponent<TrailRenderer>().material.SetColor("_EmissionColor", new Color(0.8f, 0f, 0f, 1f));
+            GetComponent<TrailRenderer>().material.SetColor("_EmissionColor", new Color(255f, 0f, 100f, 1f));
         }
         if (col.gameObject.name == "wall_right") {
             GetComponent<Rigidbody2D>().position = new Vector3(0, 0, 0);
