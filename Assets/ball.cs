@@ -32,11 +32,11 @@ public class ball : MonoBehaviour {
 
     void Update() {
 
-        if (isNear(-5f, 15f, 5f, -15f)) { // center
+        if (isNear(-10f, 37f, 10f, -37f)) { // center
             GetComponent<SpriteRenderer>().sprite = sprite;
-        } else if (isNear(-25f, 15f, -17, -15f)) { // left
+        } else if (isNear(-50f, 37f, -35, -37f)) { // left
             GetComponent<SpriteRenderer>().sprite = sprite;
-        } else if (isNear(17f, 15f, 25f, -15f)) { // right
+        } else if (isNear(35f, 37f, 50f, -37f)) { // right
             GetComponent<SpriteRenderer>().sprite = sprite;
         } else if (isNear(Input.mousePosition.x, Input.mousePosition.y, _distance)) {
             GetComponent<SpriteRenderer>().sprite = sprite;

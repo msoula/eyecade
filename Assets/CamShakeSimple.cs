@@ -15,7 +15,7 @@ public class CamShakeSimple : MonoBehaviour
 
         if (col.gameObject.name == "wall_left" || col.gameObject.name == "wall_right") {
             originalCameraPosition = mainCamera.transform.position;
-            shakeAmt = col.relativeVelocity.magnitude * .0025f;
+            shakeAmt = col.relativeVelocity.magnitude * .025f;
             InvokeRepeating("CameraShake", 0, .01f);
             Invoke("StopShaking", 0.3f);
         }
