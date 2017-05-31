@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class ball : MonoBehaviour {
 
-    public float speed = 5;
+    public static float SPEED_MAX = 60;
+    public float speed = 30;
     public Sprite sprite;
     public float _distance;
 
+    private float _speed;
+
 	void Start () {
-        GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;
+
+        _speed = speed;
+
+        GetComponent<Rigidbody2D>().velocity = Vector2.right * _speed;
 	}
 
     float HitFactor(Vector2 Ball_Pos, Vector2 Racket_Pos, float Racket_Height) {
@@ -49,30 +55,38 @@ public class ball : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D col) {
+
         if (col.gameObject.name == "racket_left")
         {
+            _speed = Mathf.Min(_speed + 7f, SPEED_MAX);
+
             float y = HitFactor(transform.position, col.transform.position, col.collider.bounds.size.y);
             Vector2 dir = new Vector2(1, y).normalized;
-            GetComponent<Rigidbody2D>().velocity = dir * speed;
+            GetComponent<Rigidbody2D>().velocity = dir * _speed;
             GetComponent<TrailRenderer>().material.SetColor("_EmissionColor", new Color(0f, 0f, 0.8f, 1f));
-
         }
         if (col.gameObject.name == "racket_right")
         {
+            _speed = Mathf.Min(_speed + 7f, SPEED_MAX);
+
             float y = HitFactor(transform.position, col.transform.position, col.collider.bounds.size.y);
             Vector2 dir = new Vector2(-1, y).normalized;
-            GetComponent<Rigidbody2D>().velocity = dir * speed;
+            GetComponent<Rigidbody2D>().velocity = dir * _speed;
             GetComponent<TrailRenderer>().material.SetColor("_EmissionColor", new Color(0.8f, 0f, 0f, 1f));
         }
         if (col.gameObject.name == "wall_right") {
             GetComponent<Rigidbody2D>().position = new Vector3(0, 0, 0);
             GetComponent<Rigidbody2D>().velocity = Vector2.left * speed;
             GetComponent<TrailRenderer>().Clear();
+
+            _speed = speed;
         }
         if (col.gameObject.name == "wall_left") {
             GetComponent<Rigidbody2D>().position = new Vector3(0, 0, 0);
             GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;
             GetComponent<TrailRenderer>().Clear();
+
+            _speed = speed;
         }
     }
 
