@@ -18,6 +18,7 @@ public class Block : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collisionInfo) {
 
+        Camera.main.GetComponent<CamShakeSimple>().OnShakeOnCollision(collisionInfo, 0.003f);
         score.OnScoreInc(gain);
 
         gameObject.GetComponent<Animator>().SetTrigger(color);

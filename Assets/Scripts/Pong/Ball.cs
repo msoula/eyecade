@@ -87,19 +87,27 @@ public class Ball : MonoBehaviour {
             GetComponent<Rigidbody2D>().position = new Vector3(0, 0, 0);
             GetComponent<Rigidbody2D>().velocity = Vector2.left * speed;
             GetComponent<TrailRenderer>().Clear();
+
             GameObject go = GameObject.Find("score_left");
             ScoreManager sm = (ScoreManager)go.GetComponent(typeof(ScoreManager));
             sm.Increment();
+
             _speed = speed;
+
+            Camera.main.GetComponent<CamShakeSimple>().OnShakeOnCollision(col, .025f);
         }
         if (col.gameObject.name == "wall_left") {
             GetComponent<Rigidbody2D>().position = new Vector3(0, 0, 0);
             GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;
             GetComponent<TrailRenderer>().Clear();
+
             GameObject go = GameObject.Find("score_right");
             ScoreManager sm = (ScoreManager)go.GetComponent(typeof(ScoreManager));
             sm.Increment();
+
             _speed = speed;
+
+            Camera.main.GetComponent<CamShakeSimple>().OnShakeOnCollision(col, .025f);
         }
     }
 
