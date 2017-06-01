@@ -58,7 +58,7 @@ public class Spinner : MonoBehaviour {
     }
 
     public bool IsSpinning() {
-        return 0 < rSpeed;
+        return rSpeed > (RSPEED_MAX / 2f);
     }
 
     public bool IsAccelerating() {

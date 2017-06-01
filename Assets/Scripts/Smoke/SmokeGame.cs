@@ -6,28 +6,42 @@ public class SmokeGame : MonoBehaviour {
 
     public static int ENEMIES_MAX = 100;
 
-    public static float ENEMY_POP_MAX_DELAY = 5f;
-    public static float ENEMY_POP_MIN_DELAY = 0.1f;
+    public static float ENEMY_POP_MAX_DELAY = 0.03f;
+    public static float ENEMY_POP_MIN_DELAY = 1f;
+    public static float ENEMY_POP_DEC = 0.01f;
 
     public GameObject enemyPrototype;
     private GameObject[] enemies = new GameObject[ENEMIES_MAX];
     private int enemyCount = 0;
 
     public GameObject[] spinners;
+    private float _timer;
     private float _lastPopTimer;
 
     public GameObject background;
     private Color _backgroundColor;
 
-    public AudioClip deathAudio;
+    public Score score;
 
 	// Use this for initialization
 	void Start () {
+        OnReset();
+	}
+
+    void OnReset() {
+
         _backgroundColor = background.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
         for (int i = 0; i < ENEMIES_MAX; ++i) {
+            if (null != enemies[i]) {
+                enemies[i].GetComponent<Destroyable>().DestroyMe();
+            }
             enemies[i] = null;
         }
-	}
+        enemyCount = 0;
+        _lastPopTimer = _timer = ENEMY_POP_MIN_DELAY;
+
+        score.OnReset();
+    }
 
     void CheckHit() {
 
@@ -43,8 +57,7 @@ public class SmokeGame : MonoBehaviour {
 
                     if (enemy.GetComponent<SmokeEnemy>().Hit(spinBehavior.hitValue)) {
 
-                        // enemy is dead
-                        enemy.GetComponent<AudioSource>().PlayOneShot(deathAudio, 0.7f);
+                        score.OnScoreInc(50);
                         enemy.GetComponent<Destroyable>().DestroyMe();
                         enemyCount--;
                         enemies[i] = null;
@@ -74,12 +87,14 @@ public class SmokeGame : MonoBehaviour {
     }
 
     void OnGameOver() {
+        OnReset();
     }
 
 	// Update is called once per frame
 	void Update () {
 
         if (enemyCount == ENEMIES_MAX) {
+            OnGameOver();
             return;
         }
 
@@ -87,8 +102,8 @@ public class SmokeGame : MonoBehaviour {
 
         CheckHealth();
 
-        if (0 < _lastPopTimer) {
-            _lastPopTimer -= Time.deltaTime;
+        if (0 < _timer) {
+            _timer -= Time.deltaTime;
             return;
         }
 
@@ -100,7 +115,9 @@ public class SmokeGame : MonoBehaviour {
                     break;
                 }
             }
-            _lastPopTimer = ENEMY_POP_MIN_DELAY;
+
+            _timer = _lastPopTimer;
+            _lastPopTimer -= ENEMY_POP_DEC;
         }
 
 	}
