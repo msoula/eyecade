@@ -6,9 +6,10 @@ namespace Arkanoid {
 
 public class Block : MonoBehaviour {
 
+    public string color = "Blue";
+
     void OnCollisionEnter2D(Collision2D collisionInfo) {
-        // Destroy the whole Block
-        Destroy(gameObject);
+        gameObject.GetComponent<Animator>().SetTrigger(color);
     }
 }
 
