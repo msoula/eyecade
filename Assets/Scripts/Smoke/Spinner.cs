@@ -10,23 +10,22 @@ public class Spinner : MonoBehaviour {
     public float incRSpeed = 2;
     public float decRSpeed = 0.7f;
     public float hitValue = 100f;
+    public Collider2D attackArea;
 
     private bool _eyeOver = false;
     private Eyex _eyeTracker;
     private CircleCollider2D _collider;
-    private BoxCollider2D _boxCollider;
 
     void Start() {
 
         _collider = GetComponent<CircleCollider2D>();
-        _boxCollider = GetComponent<BoxCollider2D>();
 
         GameObject eyex = GameObject.Find("eye");
         _eyeTracker = eyex.GetComponent<Eyex>();
     }
 
-    public bool IsHitting(GameObject obj) {
-        return _boxCollider.bounds.Contains(obj.transform.position);
+    public bool IsHitting(Collider2D col) {
+        return attackArea.bounds.Intersects(col.bounds);
     }
 
     bool IsTouching() {
