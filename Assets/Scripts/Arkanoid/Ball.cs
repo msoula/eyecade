@@ -6,6 +6,8 @@ namespace Arkanoid {
 
 public class Ball : MonoBehaviour {
 
+    private static float ORIG_Y = -75f;
+
     public float speed = 100f;
     public float distance;
 
@@ -21,6 +23,14 @@ public class Ball : MonoBehaviour {
         GameObject go = GameObject.Find("eye");
         _eye = (Eyex)go.GetComponent(typeof(Eyex));
 	}
+
+    void Reset() {
+
+        GameObject racket = GameObject.Find("racket");
+        transform.position = new Vector2(racket.transform.position.x, ORIG_Y);
+        GetComponent<Rigidbody2D>().velocity = Vector2.up * speed;
+
+    }
 
     bool isNear(Vector3 v3Pos, float distance)
     {
@@ -45,15 +55,19 @@ public class Ball : MonoBehaviour {
 	// Update is called once per frame
     void Update() {
 
-        if (isNear(-110f, 120f, 110, 120f)) { // top
+        // die ?
+        if (isNear(-110f, -110f, 110f, -120f)) {
+            Reset();
+            return;
+        }
+
+        if (isNear(_eye.transform.position, distance)) {
+            GetComponent<SpriteRenderer>().sprite = _sprite;
+        } else if (isNear(-110f, 120f, 110, 120f)) { // top
             GetComponent<SpriteRenderer>().sprite = _sprite;
         } else if (isNear(-110f, -30f, 110f, -110)) { // bottom
             GetComponent<SpriteRenderer>().sprite = _sprite;
-        } else if (isNear(_eye.transform.position, distance)) {
-            GetComponent<SpriteRenderer>().sprite = _sprite;
-        }
-        else
-        {
+        } else {
             GetComponent<SpriteRenderer>().sprite = null;
         }
 
