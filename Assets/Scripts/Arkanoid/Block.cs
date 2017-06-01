@@ -8,19 +8,14 @@ public class Block : MonoBehaviour {
 
     public float gain = 1;
     public string color = "Blue";
-
-    private Score score;
-
-    void Start() {
-        GameObject scoreObj = GameObject.Find("score");
-        score = scoreObj.GetComponent<Score>();
-    }
+    public bool alive = true;
 
     void OnCollisionEnter2D(Collision2D collisionInfo) {
-
         Camera.main.GetComponent<CamShakeSimple>().OnShakeOnCollision(collisionInfo, 0.003f);
-        score.OnScoreInc(gain);
+        alive = false;
+    }
 
+    public void OnDie() {
         gameObject.GetComponent<Animator>().SetTrigger(color);
     }
 }

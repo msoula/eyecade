@@ -10,10 +10,10 @@ public class Score : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         text = GetComponent<UnityEngine.UI.Text>();
-        Reset();
+        OnReset();
 	}
 
-    public void Reset() {
+    public void OnReset() {
         score = 0;
     }
 

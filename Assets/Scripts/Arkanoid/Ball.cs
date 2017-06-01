@@ -24,7 +24,7 @@ public class Ball : MonoBehaviour {
         _eye = (Eyex)go.GetComponent(typeof(Eyex));
 	}
 
-    void Reset() {
+    public void Reset() {
 
         GameObject racket = GameObject.Find("racket");
         transform.position = new Vector2(racket.transform.position.x, ORIG_Y);
@@ -52,14 +52,13 @@ public class Ball : MonoBehaviour {
         return ((x1 < position.x && y1 > position.y) && (x2 > position.x && y2 < position.y));
     }
 
+    public bool IsDead() {
+    return isNear(-110f, -110f, 110f, -120f);
+    }
+
 	// Update is called once per frame
     void Update() {
 
-        // die ?
-        if (isNear(-110f, -110f, 110f, -120f)) {
-            Reset();
-            return;
-        }
 
         if (isNear(_eye.transform.position, distance)) {
             GetComponent<SpriteRenderer>().sprite = _sprite;
@@ -71,6 +70,10 @@ public class Ball : MonoBehaviour {
             GetComponent<SpriteRenderer>().sprite = null;
         }
 
+    }
+
+    public bool IsHitting(GameObject obj) {
+        return GetComponent<Collider2D>().bounds.Intersects(obj.GetComponent<Collider2D>().bounds);
     }
 
 
