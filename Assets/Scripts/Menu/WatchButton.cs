@@ -6,36 +6,29 @@ public class WatchButton : MonoBehaviour
 {
 
     public float _distance;
-    private Eyex _eye;
+    public GameObject _eye;
     private float _pauseTimer;
     private bool eyeOver;
     public bool shouldExit = false;
-
-    void Start()
+    
+    bool isNear(GameObject obj)
     {
-        GameObject go = GameObject.Find("eye");
-        _eye = (Eyex)go.GetComponent(typeof(Eyex));
-    }
-
-    bool isNear(Vector3 v3Pos, float distance)
-    {
-        v3Pos = v3Pos - transform.position;
-        return ((v3Pos.x > -distance && v3Pos.y > -distance) && (v3Pos.x < distance && v3Pos.y < distance));
+        return obj.GetComponent<SpriteRenderer>().bounds.Intersects(GetComponent<Collider2D>().bounds);
     }
 
     void Update()
     {
         if (!eyeOver)
         {
-            if (isNear(_eye.transform.position, _distance))
+            if (isNear(_eye))
             {
                 eyeOver = true;
-                _pauseTimer = 5f;
+                _pauseTimer = 0.5f;
             }
         }
         else
         {
-            if (isNear(_eye.transform.position, _distance))
+            if (isNear(_eye))
             {
 
                 if (_pauseTimer > 0)
