@@ -35,9 +35,7 @@ public class Ball : MonoBehaviour {
     bool isNear(float x, float y, float distance) {
         Vector3 v3Pos = new Vector3(x, y, 0);
         v3Pos = Camera.main.ScreenToWorldPoint(v3Pos);
-
         v3Pos = v3Pos - transform.position;
-
         return ((v3Pos.x > -distance && v3Pos.y > -distance) && (v3Pos.x < distance && v3Pos.y < distance));
     }
 
