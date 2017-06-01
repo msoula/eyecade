@@ -56,22 +56,6 @@ public class Ball : MonoBehaviour {
     return isNear(-110f, -110f, 110f, -120f);
     }
 
-	// Update is called once per frame
-    void Update() {
-
-
-        if (isNear(_eye.transform.position, distance)) {
-            GetComponent<SpriteRenderer>().sprite = _sprite;
-        } else if (isNear(-110f, 120f, 110, 120f)) { // top
-            GetComponent<SpriteRenderer>().sprite = _sprite;
-        } else if (isNear(-110f, -30f, 110f, -110)) { // bottom
-            GetComponent<SpriteRenderer>().sprite = _sprite;
-        } else {
-            GetComponent<SpriteRenderer>().sprite = null;
-        }
-
-    }
-
     public bool IsHitting(GameObject obj) {
         return GetComponent<Collider2D>().bounds.Intersects(obj.GetComponent<Collider2D>().bounds);
     }
