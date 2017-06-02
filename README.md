@@ -17,11 +17,11 @@ With eyecade, you can play 3 games with your eyes (or mouse if you don't have To
   - [Tobii Eye Tracking SDK](http://developer.tobii.com/eyex-sdk/) (Import the SDK assets to the Unity Project to build it)
   
 ## Why this project ?
-We made this project during the forty-eight hoursof the [Addon Game Jam 2017](https://addon.events/) with a strong interest for the innovative gameplay that could offer us the eye tracker.
+We made this project during the forty-eight hours of the [Addon Game Jam 2017](https://addon.events/) with a strong interest for the innovative gameplay that could offer us the eye tracker.
 
 ## How to play?
   - Escape: back to the menu/exit
-  - EyeTracker/Mouse: moving the cursor
+  - EyeTracker/Mouse: move the cursor
 #### Eye Pong
   - z: move the racket left to up
   - s: move the racket left to down
