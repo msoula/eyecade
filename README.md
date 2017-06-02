@@ -23,13 +23,13 @@ We made this project during the forty-eight hoursof the [Addon Game Jam 2017](ht
   - Escape: back to the menu/exit
   - EyeTracker/Mouse: moving the cursor
 #### Eye Pong
-  - z: up racket left
-  - s: down racket left
-  - up arrow : up racket right
-  - down arrow : down racket right
+  - z: move the racket left to up
+  - s: move the racket left to down
+  - up arrow : move the racket right to up
+  - down arrow : move the racket right to down
 #### Eye Brick
-  - left arrow : move racket to the left
-  - right arrow : move racket to the right
+  - left arrow : move the racket to the left
+  - right arrow : move the racket to the right
   
 ## Can I help you?
 Of course ! By hitting the :star: button !
