@@ -5,23 +5,23 @@ using UnityEngine;
 public class WatchButton : MonoBehaviour
 {
 
+    public WatchableGame game;
     public UnityEngine.UI.Button button;
-    public SpriteRenderer eye;
     public bool shouldExit = false;
 
+    private Collider2D _collider;
     private float _pauseTimer;
     private bool  _gazed;
 
-    bool isGazed()
-    {
-        return eye.bounds.Intersects(GetComponent<Collider2D>().bounds);
+    void Start() {
+        _collider = GetComponent<Collider2D>();
     }
 
     void Update()
     {
         if (!_gazed)
         {
-            if (isGazed())
+            if (game.IsGazed(_collider))
             {
                 _gazed = true;
                 _pauseTimer = 1f;
@@ -30,7 +30,7 @@ public class WatchButton : MonoBehaviour
         }
         else
         {
-            if (isGazed())
+            if (game.IsGazed(_collider))
             {
 
                 if (_pauseTimer > 0)
