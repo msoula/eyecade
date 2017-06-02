@@ -5,30 +5,32 @@ using UnityEngine;
 public class WatchButton : MonoBehaviour
 {
 
-    public float _distance;
-    public GameObject _eye;
-    private float _pauseTimer;
-    private bool eyeOver;
+    public UnityEngine.UI.Button button;
+    public SpriteRenderer eye;
     public bool shouldExit = false;
-    
-    bool isNear(GameObject obj)
+
+    private float _pauseTimer;
+    private bool  _gazed;
+
+    bool isGazed()
     {
-        return obj.GetComponent<SpriteRenderer>().bounds.Intersects(GetComponent<Collider2D>().bounds);
+        return eye.bounds.Intersects(GetComponent<Collider2D>().bounds);
     }
 
     void Update()
     {
-        if (!eyeOver)
+        if (!_gazed)
         {
-            if (isNear(_eye))
+            if (isGazed())
             {
-                eyeOver = true;
-                _pauseTimer = 0.5f;
+                _gazed = true;
+                _pauseTimer = 1f;
+                return;
             }
         }
         else
         {
-            if (isNear(_eye))
+            if (isGazed())
             {
 
                 if (_pauseTimer > 0)
@@ -40,15 +42,16 @@ public class WatchButton : MonoBehaviour
             }
             else
             {
-                eyeOver = false;
+                _gazed = false;
                 return;
             }
         }
-        if (eyeOver)
+
+        if (_gazed)
         {
             if (shouldExit)
                 Application.Quit();
-            GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
+            button.onClick.Invoke();
         }
     }
 }
