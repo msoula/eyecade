@@ -10,16 +10,16 @@ public class Ball : MonoBehaviour {
     public float _distance;
 
     private float _speed;
-    private Eyex  _eye;
+    public  Eyex  eye;
+
+    public Score scoreLeft;
+    public Score scoreRight;
 
 	void Start () {
 
         _speed = speed;
 
         GetComponent<Rigidbody2D>().velocity = Vector2.right * _speed;
-
-        GameObject go = GameObject.Find("eye");
-        _eye = (Eyex)go.GetComponent(typeof(Eyex));
 	}
 
     float HitFactor(Vector2 Ball_Pos, Vector2 Racket_Pos, float Racket_Height) {
@@ -52,7 +52,7 @@ public class Ball : MonoBehaviour {
             GetComponent<SpriteRenderer>().sprite = sprite;
         } else if (isNear(35f, 33f, 50f, -37f)) { // right
             GetComponent<SpriteRenderer>().sprite = sprite;
-        } else if (isNear(_eye.transform.position, _distance)) {
+        } else if (isNear(eye.transform.position, _distance)) {
             GetComponent<SpriteRenderer>().sprite = sprite;
         }
         else
@@ -88,9 +88,7 @@ public class Ball : MonoBehaviour {
             GetComponent<Rigidbody2D>().velocity = Vector2.left * speed;
             GetComponent<TrailRenderer>().Clear();
 
-            GameObject go = GameObject.Find("score_left");
-            ScoreManager sm = (ScoreManager)go.GetComponent(typeof(ScoreManager));
-            sm.Increment();
+            scoreLeft.OnScoreInc(1);
 
             _speed = speed;
 
@@ -101,9 +99,7 @@ public class Ball : MonoBehaviour {
             GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;
             GetComponent<TrailRenderer>().Clear();
 
-            GameObject go = GameObject.Find("score_right");
-            ScoreManager sm = (ScoreManager)go.GetComponent(typeof(ScoreManager));
-            sm.Increment();
+            scoreRight.OnScoreInc(1);
 
             _speed = speed;
 

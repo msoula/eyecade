@@ -7,6 +7,8 @@ public class Score : MonoBehaviour {
     private UnityEngine.UI.Text text;
     private float score = 0;
 
+    public string format = "00000000";
+
 	// Use this for initialization
 	void Start () {
         text = GetComponent<UnityEngine.UI.Text>();
@@ -28,6 +30,6 @@ public class Score : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        text.text = score.ToString("00000000");
+        text.text = score.ToString(format);
 	}
 }
