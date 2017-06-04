@@ -1,4 +1,4 @@
-![logo](./Assets/logo_light.png)
+![logo](./Assets/Sprites/logo_light.png)
 
 # Eyecade
 With eyecade, you can play 3 games with your eyes (or mouse if you don't have Tobii Eye Tracker).
@@ -23,10 +23,10 @@ We made this project during the forty-eight hours of the [Addon Game Jam 2017](h
   - Escape: back to the menu/exit
   - EyeTracker/Mouse: move the cursor
 #### Eye Pong
-  - z: move the racket left to up
-  - s: move the racket left to down
-  - up arrow : move the racket right to up
-  - down arrow : move the racket right to down
+  - z: move the left racket to up
+  - s: move the left racket to down
+  - up arrow : move the right racket to up
+  - down arrow : move the right racket to down
 #### Eye Brick
   - left arrow : move the racket to the left
   - right arrow : move the racket to the right
