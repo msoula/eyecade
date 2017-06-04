@@ -6,44 +6,35 @@ public class Spinner : MonoBehaviour {
 
     public static int RSPEED_MAX = 90;
 
+    public WatchableGame game;
     public float rSpeed = 0;
     public float incRSpeed = 2;
     public float decRSpeed = 0.7f;
     public float hitValue = 100f;
     public Collider2D attackArea;
 
-    private bool _eyeOver = false;
-    private Eyex _eyeTracker;
+    private bool _isGazed = false;
     private CircleCollider2D _collider;
 
     void Start() {
-
         _collider = GetComponent<CircleCollider2D>();
-
-        GameObject eyex = GameObject.Find("eye");
-        _eyeTracker = eyex.GetComponent<Eyex>();
     }
 
     public bool IsHitting(Collider2D col) {
         return attackArea.bounds.Intersects(col.bounds);
     }
 
-    bool IsTouching() {
-        float radius = _collider.radius;
-        return radius >= Vector3.Distance(transform.position, _eyeTracker.transform.position);
-    }
-
 	// Update is called once per frame
 	void Update () {
 
-        _eyeOver = IsTouching();
+        _isGazed = game.IsGazed(_collider.bounds);
 
-        if (_eyeOver && rSpeed < RSPEED_MAX) {
+        if (_isGazed && rSpeed < RSPEED_MAX) {
             rSpeed += incRSpeed;
             if (RSPEED_MAX < rSpeed) {
                 rSpeed = RSPEED_MAX;
             }
-        } else if (!_eyeOver && 0 < rSpeed) {
+        } else if (!_isGazed && 0 < rSpeed) {
             rSpeed -= decRSpeed;
             if (0 > rSpeed) {
                 rSpeed = 0;
@@ -62,14 +53,14 @@ public class Spinner : MonoBehaviour {
     }
 
     public bool IsAccelerating() {
-        return _eyeOver && rSpeed < RSPEED_MAX;
+        return _isGazed && rSpeed < RSPEED_MAX;
     }
 
     public bool IsDecelerating() {
-        return !_eyeOver && 0 < rSpeed;
+        return !_isGazed && 0 < rSpeed;
     }
 
     public bool IsMax() {
-        return _eyeOver && rSpeed == RSPEED_MAX;
+        return _isGazed && rSpeed == RSPEED_MAX;
     }
 }
