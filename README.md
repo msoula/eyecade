@@ -12,6 +12,9 @@ With eyecade, you can play 3 games with your eyes (or mouse if you don't have To
   - Eye Smoke: a single player game where you have to destroy mobs caused by smoking in the lungs by turning one of the three propellers with your eyes
   <img src="https://img.itch.zone/aW1hZ2UvMTQ4MTI0LzY3OTMwNy5wbmc=/original/1JboLg.png" width="500">
 
+## Install
+Download the latest release [here](https://github.com/msoula/eyepong/releases/download/v1.0/Eyepong.zip)
+
 ## What does it use?
   - Unity
   - [Tobii Eye Tracking SDK](http://developer.tobii.com/eyex-sdk/) (Import the SDK assets to the Unity Project to build it)
