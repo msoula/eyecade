@@ -6,11 +6,12 @@ public class WatchableGame : MonoBehaviour {
 
     public SpriteRenderer eye;
 
-    public bool IsGazed(SpriteRenderer renderer) {
-        return eye.bounds.Intersects(renderer.bounds);
+    public bool IsGazed(Vector3 pos) {
+        return eye.bounds.Contains(pos);
     }
-    public bool IsGazed(Collider2D collider) {
-        return eye.bounds.Intersects(collider.bounds);
+
+    public bool IsGazed(Bounds bounds) {
+        return bounds.Contains(eye.bounds.center);
     }
 
 }

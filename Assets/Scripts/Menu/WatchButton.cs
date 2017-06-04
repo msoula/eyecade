@@ -21,7 +21,7 @@ public class WatchButton : MonoBehaviour
     {
         if (!_gazed)
         {
-            if (game.IsGazed(_collider))
+            if (game.IsGazed(_collider.bounds))
             {
                 _gazed = true;
                 _pauseTimer = 1f;
@@ -30,7 +30,7 @@ public class WatchButton : MonoBehaviour
         }
         else
         {
-            if (game.IsGazed(_collider))
+            if (game.IsGazed(_collider.bounds))
             {
 
                 if (_pauseTimer > 0)
