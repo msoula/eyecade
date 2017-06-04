@@ -14,4 +14,8 @@ public class WatchableGame : MonoBehaviour {
         return bounds.Contains(eye.bounds.center);
     }
 
+    public bool IsWatched(Bounds bounds) {
+        return bounds.Intersects(eye.bounds);
+    }
+
 }

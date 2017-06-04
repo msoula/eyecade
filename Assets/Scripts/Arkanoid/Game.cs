@@ -44,10 +44,10 @@ public class Game : MonoBehaviour {
         foreach (GameObject proto in blockProtos) {
             for (int i = 0; i < BLOCKS_PER_LINE; ++i) {
                 if (null == blocks[blockCount]) {
-                    blocks[blockCount++] = Instantiate(proto, new Vector2(BLOCKS_ORIG_X + (i*BLOCK_HORIZONTAL_GAP), BLOCKS_ORIG_Y - (line*BLOCK_VERTICAL_GAP)), Quaternion.identity);
-                } else {
-                    blockCount++;
+                    blocks[blockCount] = Instantiate(proto, new Vector2(BLOCKS_ORIG_X + (i*BLOCK_HORIZONTAL_GAP), BLOCKS_ORIG_Y - (line*BLOCK_VERTICAL_GAP)), Quaternion.identity);
+                    blocks[blockCount].GetComponent<Arkanoid.Block>().game = GetComponent<WatchableGame>();
                 }
+                blockCount++;
             }
             line++;
         }
@@ -70,7 +70,6 @@ public class Game : MonoBehaviour {
             if (null == blocks[i]) continue;
 
             if (!blocks[i].GetComponent<Arkanoid.Block>().alive) {
-        //Camera.main.GetComponent<CamShakeSimple>().OnShakeOnCollision(collisionInfo, 0.003f);
                 score.OnScoreInc(blocks[i].GetComponent<Arkanoid.Block>().gain);
                 blocks[i].GetComponent<Arkanoid.Block>().OnDie();
                 blocks[i] = null;
@@ -83,7 +82,7 @@ public class Game : MonoBehaviour {
     void CheckHealth() {
         if (ball.IsDead()) {
             Destroy(tries[--triesCount].gameObject);
-            ball.Reset();
+            ball.OnReset();
         }
     }
 
